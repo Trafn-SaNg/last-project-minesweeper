@@ -1,0 +1,74 @@
+﻿[
+  {
+    "question": "Số trên ô có ý nghĩa gì?",
+    "answer": "Con số cho biết có bao nhiêu quả mìn nằm trong 8 ô xung quanh ô đó. Ví dụ: Số 2 nghĩa là có 2 quả mìn ở cạnh nó.",
+    "keywords": [
+      "số",
+      "ý nghĩa",
+      "number",
+      "logic"
+    ]
+  },
+  {
+    "question": "Làm sao để mở một ô?",
+    "answer": "Nhấn chuột trái để mở. Chỉ mở khi bạn đoán ô đó an toàn, mở trúng mìn là thua ngay!",
+    "keywords": [
+      "mở",
+      "open",
+      "chuột trái",
+      "click"
+    ]
+  },
+  {
+    "question": "Làm thế nào để bỏ cờ đã cắm?",
+    "answer": "Nhấn chuột phải thêm một lần nữa vào ô đang có cờ để gỡ bỏ nó.",
+    "keywords": [
+      "bỏ cờ",
+      "xóa cờ",
+      "gỡ cờ",
+      "unflag"
+    ]
+  },
+  {
+    "question": "Điều kiện thắng là gì?",
+    "answer": "Bạn thắng khi mở được tất cả các ô KHÔNG chứa mìn trên bản đồ. Việc cắm cờ là tùy chọn.",
+    "keywords": [
+      "thắng",
+      "win",
+      "victory",
+      "điều kiện"
+    ]
+  },
+  {
+    "question": "Làm sao để chơi nhanh hơn?",
+    "answer": "Hãy dùng thao tác Click đôi (hoặc chuột giữa) vào một con số đã đủ cờ xung quanh để mở nhanh các ô còn lại.",
+    "keywords": [
+      "nhanh",
+      "mẹo",
+      "tip",
+      "click đôi",
+      "chuột giữa"
+    ]
+  },
+  {
+    "question": "Gặp thế bí 50/50 thì làm sao?",
+    "answer": "Đôi khi game buộc bạn phải đoán. Hãy chọn ô nào có khả năng mở ra vùng an toàn rộng hơn.",
+    "keywords": [
+      "bí",
+      "đoán",
+      "50/50",
+      "may mắn",
+      "random"
+    ]
+  },
+  {
+    "question": "Click đầu tiên có bị nổ không?",
+    "answer": "Không. Game được thiết kế để ô đầu tiên bạn mở luôn luôn an toàn.",
+    "keywords": [
+      "đầu tiên",
+      "first click",
+      "nổ",
+      "chết ngay"
+    ]
+  }
+]

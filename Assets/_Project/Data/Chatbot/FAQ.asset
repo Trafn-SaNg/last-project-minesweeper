@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295464a870161a54ba72eb34b385de95, type: 3}
+  m_Name: FAQ
+  m_EditorClassIdentifier: 
+  entries:
+  - question: "S\u1ED1 tr\xEAn \xF4 c\xF3 \xFD ngh\u0129a g\xEC?"
+    answer: "Con s\u1ED1 cho bi\u1EBFt c\xF3 bao nhi\xEAu qu\u1EA3 m\xECn n\u1EB1m
+      trong 8 \xF4 xung quanh \xF4 \u0111\xF3. V\xED d\u1EE5: S\u1ED1 2 ngh\u0129a
+      l\xE0 c\xF3 2 qu\u1EA3 m\xECn \u1EDF c\u1EA1nh n\xF3."
+    minScore: 0
+    keywords:
+    - "s\u1ED1"
+    - "\xFD ngh\u0129a"
+    - number
+    - logic
+  - question: "L\xE0m sao \u0111\u1EC3 m\u1EDF m\u1ED9t \xF4?"
+    answer: "Nh\u1EA5n chu\u1ED9t tr\xE1i \u0111\u1EC3 m\u1EDF. Ch\u1EC9 m\u1EDF
+      khi b\u1EA1n \u0111o\xE1n \xF4 \u0111\xF3 an to\xE0n, m\u1EDF tr\xFAng m\xECn
+      l\xE0 thua ngay!"
+    minScore: 0
+    keywords:
+    - "m\u1EDF"
+    - open
+    - "chu\u1ED9t tr\xE1i"
+    - click
+  - question: "L\xE0m th\u1EBF n\xE0o \u0111\u1EC3 b\u1ECF c\u1EDD \u0111\xE3 c\u1EAFm?"
+    answer: "Nh\u1EA5n chu\u1ED9t ph\u1EA3i th\xEAm m\u1ED9t l\u1EA7n n\u1EEFa v\xE0o
+      \xF4 \u0111ang c\xF3 c\u1EDD \u0111\u1EC3 g\u1EE1 b\u1ECF n\xF3."
+    minScore: 0
+    keywords:
+    - "b\u1ECF c\u1EDD"
+    - "x\xF3a c\u1EDD"
+    - "g\u1EE1 c\u1EDD"
+    - unflag
+  - question: "\u0110i\u1EC1u ki\u1EC7n th\u1EAFng l\xE0 g\xEC?"
+    answer: "B\u1EA1n th\u1EAFng khi m\u1EDF \u0111\u01B0\u1EE3c t\u1EA5t c\u1EA3
+      c\xE1c \xF4 KH\xD4NG ch\u1EE9a m\xECn tr\xEAn b\u1EA3n \u0111\u1ED3. Vi\u1EC7c
+      c\u1EAFm c\u1EDD l\xE0 t\xF9y ch\u1ECDn."
+    minScore: 0
+    keywords:
+    - "th\u1EAFng"
+    - win
+    - victory
+    - "\u0111i\u1EC1u ki\u1EC7n"
+  - question: "L\xE0m sao \u0111\u1EC3 ch\u01A1i nhanh h\u01A1n?"
+    answer: "H\xE3y d\xF9ng thao t\xE1c Click \u0111\xF4i (ho\u1EB7c chu\u1ED9t gi\u1EEFa)
+      v\xE0o m\u1ED9t con s\u1ED1 \u0111\xE3 \u0111\u1EE7 c\u1EDD xung quanh \u0111\u1EC3
+      m\u1EDF nhanh c\xE1c \xF4 c\xF2n l\u1EA1i."
+    minScore: 0
+    keywords:
+    - nhanh
+    - "m\u1EB9o"
+    - tip
+    - "click \u0111\xF4i"
+    - "chu\u1ED9t gi\u1EEFa"
+  - question: "G\u1EB7p th\u1EBF b\xED 50/50 th\xEC l\xE0m sao?"
+    answer: "\u0110\xF4i khi game bu\u1ED9c b\u1EA1n ph\u1EA3i \u0111o\xE1n. H\xE3y
+      ch\u1ECDn \xF4 n\xE0o c\xF3 kh\u1EA3 n\u0103ng m\u1EDF ra v\xF9ng an to\xE0n
+      r\u1ED9ng h\u01A1n."
+    minScore: 0
+    keywords:
+    - "b\xED"
+    - "\u0111o\xE1n"
+    - "may m\u1EAFn"
+    - random
+  - question: "Click \u0111\u1EA7u ti\xEAn c\xF3 b\u1ECB n\u1ED5 kh\xF4ng?"
+    answer: "Kh\xF4ng. Game \u0111\u01B0\u1EE3c thi\u1EBFt k\u1EBF \u0111\u1EC3 \xF4
+      \u0111\u1EA7u ti\xEAn b\u1EA1n m\u1EDF lu\xF4n lu\xF4n an to\xE0n"
+    minScore: 0
+    keywords:
+    - first click
+    - "\u0111\u1EA7u ti\xEAn"
+    - "n\u1ED5"
+    - "ch\u1EBFt ngay"
