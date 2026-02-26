@@ -44,7 +44,7 @@ namespace Minesweeper.UI
         public Button helpCloseButton;
 
         [Header("Audio")]
-        public AudioManager audio;
+        public AudioManager audioManager;
 
         [Header("Win UI")]
         public TMP_Text winInfo;
@@ -53,8 +53,27 @@ namespace Minesweeper.UI
         public ChatUI chatUI;
         public Button chatButton; // nút Chat ở HelpPanel
 
+        [Header("Menus / Challenge")]
+        public GameObject modeSelectPanel;       // panel chọn Classic/Challenge (nếu anh có)
+        public GameObject challengeSelectPanel;  // panel chọn level Challenge
 
+        [System.Serializable]
+        public struct ChallengeConfig
+        {
+            public int width;
+            public int height;
+            public int mines;
+        }
 
+        [Tooltip("5 level demo. Index 0..4 tương ứng level 1..5")]
+        public ChallengeConfig[] challengeLevels = new ChallengeConfig[5]
+        {
+            new ChallengeConfig { width = 9,  height = 9,  mines = 10 },
+            new ChallengeConfig { width = 12, height = 12, mines = 20 },
+            new ChallengeConfig { width = 16, height = 16, mines = 40 },
+            new ChallengeConfig { width = 20, height = 16, mines = 60 },
+            new ChallengeConfig { width = 24, height = 20, mines = 99 },
+        };
 
         private Board _board;
         private TileView[,] _tiles;
@@ -64,7 +83,10 @@ namespace Minesweeper.UI
         private bool _firstClick;
 
         private int _w = 10, _h = 10, _m = 10;
-        private string _difficultyKey = "Easy";
+        private string _difficultyKey = "Easy"; // Easy/Medium/Hard/Custom/Challenge_L1...
+
+        private Coroutine _loseRoutine;
+        private int _runId; // tăng mỗi lần NewGame để hủy các animation cũ
 
         private void Awake()
         {
@@ -81,22 +103,23 @@ namespace Minesweeper.UI
             if (winCloseButton) winCloseButton.onClick.AddListener(CloseWinLose);
             if (losePlayAgainButton) losePlayAgainButton.onClick.AddListener(PlayAgain);
             if (loseCloseButton) loseCloseButton.onClick.AddListener(CloseWinLose);
+
             if (helpButton) helpButton.onClick.AddListener(ShowHelp);
             if (helpCloseButton) helpCloseButton.onClick.AddListener(CloseHelp);
             if (chatButton) chatButton.onClick.AddListener(OpenChatFromHelp);
 
             HideAllOverlays();
+            HideMenus();
         }
 
         private void Start()
         {
-            if (!audio) audio = FindObjectOfType<AudioManager>();
-            if (audio) audio.PlayBgm();
+            if (!audioManager) audioManager = FindObjectOfType<AudioManager>();
+            if (audioManager) audioManager.PlayBgm();
 
             ApplyDifficultyPreset(0);
             NewGame();
         }
-
 
         private void Update()
         {
@@ -107,7 +130,7 @@ namespace Minesweeper.UI
             }
         }
 
-        // ---------------- UI ----------------
+        // ---------------- UI (Difficulty) ----------------
 
         public void OnDifficultyChanged(int value)
         {
@@ -124,12 +147,18 @@ namespace Minesweeper.UI
         private void ApplyDifficultyPreset(int value)
         {
             // 0 Easy, 1 Medium, 2 Hard, 3 Custom
-            if (value == 0) { _w = 9;  _h = 9;  _m = 10; _difficultyKey = "Easy"; }
+            if (value == 0) { _w = 9; _h = 9; _m = 10; _difficultyKey = "Easy"; }
             if (value == 1) { _w = 16; _h = 16; _m = 40; _difficultyKey = "Medium"; }
             if (value == 2) { _w = 30; _h = 16; _m = 99; _difficultyKey = "Hard"; }
         }
 
         private string BestKey() => $"{_difficultyKey}_{_w}x{_h}_{_m}";
+
+        public string ChallengeBestKey(int level)
+        {
+            if (!TryGetChallengeConfig(level, out var cfg)) cfg = new ChallengeConfig { width = _w, height = _h, mines = _m };
+            return $"Challenge_L{level}_{cfg.width}x{cfg.height}_{cfg.mines}";
+        }
 
         private void UpdateBestText()
         {
@@ -150,14 +179,14 @@ namespace Minesweeper.UI
             minesLeftText.text = $"Mines: {left}";
         }
 
-        private static string FormatTime(int seconds)
+        public static string FormatTime(int seconds)
         {
             int mm = seconds / 60;
             int ss = seconds % 60;
             return $"{mm:00}:{ss:00}";
         }
 
-        // ---------------- Overlay ----------------
+        // ---------------- Overlay / Menus ----------------
 
         private void HideAllOverlays()
         {
@@ -166,6 +195,12 @@ namespace Minesweeper.UI
             if (losePanel) losePanel.SetActive(false);
             if (customPanel) customPanel.SetActive(false);
             if (helpPanel) helpPanel.SetActive(false);
+        }
+
+        private void HideMenus()
+        {
+            if (modeSelectPanel) modeSelectPanel.SetActive(false);
+            if (challengeSelectPanel) challengeSelectPanel.SetActive(false);
         }
 
         private void ShowWin()
@@ -211,9 +246,9 @@ namespace Minesweeper.UI
         public void CancelCustom()
         {
             HideAllOverlays();
-            // revert dropdown back to previous preset (if it was on Custom)
+            // revert dropdown back to Easy
             if (difficultyDropdown && difficultyDropdown.value == 3)
-                difficultyDropdown.value = 0; // default back to Easy
+                difficultyDropdown.value = 0;
         }
 
         public void ApplyCustom()
@@ -241,6 +276,59 @@ namespace Minesweeper.UI
             return int.TryParse(field.text, out var v) ? v : fallback;
         }
 
+        // ---------------- Classic / Challenge API (FIX CS1061) ----------------
+
+        public void StartClassic()
+        {
+            HideAllOverlays();
+            HideMenus();
+
+            // Nếu dropdown đang ở Custom thì cho về Easy để tránh mở CustomPanel
+            if (difficultyDropdown && difficultyDropdown.value == 3)
+                difficultyDropdown.value = 0;
+
+            // key sẽ theo preset hiện tại
+            if (difficultyDropdown) ApplyDifficultyPreset(difficultyDropdown.value);
+
+            NewGame();
+        }
+
+        public void ShowChallengeSelect()
+        {
+            HideAllOverlays();
+
+            if (modeSelectPanel) modeSelectPanel.SetActive(false);
+            if (challengeSelectPanel) challengeSelectPanel.SetActive(true);
+        }
+
+        public void StartChallengeGame(int level)
+        {
+            HideAllOverlays();
+            HideMenus();
+
+            if (!TryGetChallengeConfig(level, out var cfg))
+                cfg = challengeLevels != null && challengeLevels.Length > 0 ? challengeLevels[0] : new ChallengeConfig { width = 9, height = 9, mines = 10 };
+
+            _w = cfg.width;
+            _h = cfg.height;
+            _m = cfg.mines;
+            _difficultyKey = $"Challenge_L{level}";
+
+            NewGame();
+        }
+
+        public bool TryGetChallengeConfig(int level, out ChallengeConfig cfg)
+        {
+            int idx = level - 1;
+            if (challengeLevels != null && idx >= 0 && idx < challengeLevels.Length)
+            {
+                cfg = challengeLevels[idx];
+                return true;
+            }
+            cfg = default;
+            return false;
+        }
+
         // ---------------- Game ----------------
 
         public void NewGame()
@@ -251,11 +339,14 @@ namespace Minesweeper.UI
                 StopCoroutine(_loseRoutine);
                 _loseRoutine = null;
             }
+
             HideAllOverlays();
+
             _board = new Board(_w, _h, _m);
             _board.Reset();
 
             _tiles = new TileView[_w, _h];
+
             _state = GameState.Ready;
             _time = 0f;
             _firstClick = true;
@@ -284,12 +375,13 @@ namespace Minesweeper.UI
 
             // instantiate tiles
             for (int y = 0; y < _h; y++)
-            for (int x = 0; x < _w; x++)
-            {
-                var t = Instantiate(tilePrefab, boardRoot);
-                t.Init(x, y, OnLeftClick, OnRightClick);
-                _tiles[x, y] = t;
-            }
+                for (int x = 0; x < _w; x++)
+                {
+                    var t = Instantiate(tilePrefab, boardRoot);
+                    t.Init(x, y, OnLeftClick, OnRightClick);
+                    _tiles[x, y] = t;
+                }
+
             StartCoroutine(FitNextFrame());
         }
 
@@ -324,8 +416,6 @@ namespace Minesweeper.UI
                 return;
             }
 
-
-
             RenderAll();
 
             if (_board.CheckWin())
@@ -341,7 +431,6 @@ namespace Minesweeper.UI
                 UpdateBestText();
 
                 // BƠM THÔNG TIN CHO WIN PANEL
-                // BƠM THÔNG TIN CHO WIN PANEL
                 if (winInfo)
                 {
                     int best = HighScoreStore.GetBest(BestKey());
@@ -349,13 +438,11 @@ namespace Minesweeper.UI
                     winInfo.text = $"Time: {FormatTime(seconds)}  |  Best: {bestStr}";
                 }
 
-
                 // ÂM THANH VICTORY (SFX)
-                if (audio) audio.PlayVictory();
+                if (audioManager) audioManager.PlayVictory();
 
                 ShowWin();
             }
-
         }
 
         private void OnRightClick(int x, int y)
@@ -365,7 +452,6 @@ namespace Minesweeper.UI
 
             if (_firstClick)
             {
-                // allow flag before first click, still OK
                 _state = GameState.Ready;
             }
 
@@ -379,8 +465,8 @@ namespace Minesweeper.UI
         private void RenderAll()
         {
             for (int y = 0; y < _h; y++)
-            for (int x = 0; x < _w; x++)
-                RenderCell(x, y);
+                for (int x = 0; x < _w; x++)
+                    RenderCell(x, y);
         }
 
         private void RenderCell(int x, int y)
@@ -402,45 +488,43 @@ namespace Minesweeper.UI
                     break;
             }
         }
+
         private void FitGridToBoardRoot()
         {
             if (!boardRoot || !grid) return;
 
-            // Lấy kích thước vùng hiển thị thật của BoardRoot
             float availW = boardRoot.rect.width - grid.padding.left - grid.padding.right;
             float availH = boardRoot.rect.height - grid.padding.top - grid.padding.bottom;
 
-            // spacing hiện tại
             float sx = grid.spacing.x;
             float sy = grid.spacing.y;
 
-            // Tính cell size tối đa để vừa cả width lẫn height
             float cellW = (availW - sx * (_w - 1)) / _w;
             float cellH = (availH - sy * (_h - 1)) / _h;
 
             float cell = Mathf.Floor(Mathf.Min(cellW, cellH));
-
-            // Giới hạn để không quá nhỏ / quá to
             cell = Mathf.Clamp(cell, 24f, 96f);
 
             grid.cellSize = new Vector2(cell, cell);
         }
+
         private void OnRectTransformDimensionsChange()
         {
             if (_board == null) return;
             if (!boardRoot || !grid) return;
             FitGridToBoardRoot();
         }
+
         private System.Collections.IEnumerator FitNextFrame()
         {
-            yield return null; // đợi 1 frame để layout tính xong rect
+            yield return null;
             FitGridToBoardRoot();
         }
+
         private void ShowHelp()
         {
             if (overlay) overlay.SetActive(true);
 
-            // tắt các panel khác nếu muốn (đỡ chồng)
             if (winPanel) winPanel.SetActive(false);
             if (losePanel) losePanel.SetActive(false);
             if (customPanel) customPanel.SetActive(false);
@@ -451,28 +535,19 @@ namespace Minesweeper.UI
         private void CloseHelp()
         {
             if (helpPanel) helpPanel.SetActive(false);
-            // nếu không còn modal nào khác thì tắt overlay
             if (overlay) overlay.SetActive(false);
         }
 
         private void OpenChatFromHelp()
         {
-            // muốn giữ HelpPanel đang mở hay tắt đi tuỳ anh:
-            // Option A: tắt HelpPanel khi mở chat
             if (helpPanel) helpPanel.SetActive(false);
-
-            // đảm bảo overlay đang bật (chat có dim riêng cũng được)
             if (overlay) overlay.SetActive(true);
 
             if (chatUI) chatUI.Open();
         }
 
-        private Coroutine _loseRoutine;
-        private int _runId; // tăng mỗi lần NewGame để hủy các animation cũ
-
         private System.Collections.IEnumerator LoseSequence(int hitX, int hitY, int runId)
         {
-            // gom mine + sort gần -> xa
             var mines = new System.Collections.Generic.List<(int x, int y, int d2)>();
             for (int y = 0; y < _h; y++)
                 for (int x = 0; x < _w; x++)
@@ -485,23 +560,18 @@ namespace Minesweeper.UI
                 }
             mines.Sort((a, b) => a.d2.CompareTo(b.d2));
 
-            // nổ lan
             const float stepDelay = 0.06f;
             for (int i = 0; i < mines.Count; i++)
             {
                 if (runId != _runId) yield break;
 
                 var (mx, my, _) = mines[i];
-
-                // KHÔNG cần RevealMineOnly để khỏi sửa Core
-                // Chỉ show UI mine (anh đã có sprite bomb đẹp rồi)
                 _tiles[mx, my].ShowMine();
 
-                if (audio) audio.PlayBoom();
+                if (audioManager) audioManager.PlayBoom();
                 yield return new WaitForSeconds(stepDelay);
             }
 
-            // đợi 1.5s rồi mới hiện LosePanel
             float afterDelay = 1.5f;
             float t = 0f;
             while (t < afterDelay)
@@ -512,12 +582,10 @@ namespace Minesweeper.UI
             }
             if (runId != _runId) yield break;
 
-            if (audio) audio.PlayLose();
+            if (audioManager) audioManager.PlayLose();
             ShowLose();
 
             _loseRoutine = null;
         }
-
-
     }
 }

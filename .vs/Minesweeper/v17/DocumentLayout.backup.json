@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\TextMesh Pro\\Examples \u0026 Extras\\Scripts\\ChatController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\TextMesh Pro\\Examples \u0026 Extras\\Scripts\\ChatController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Configs\\ChatbotConfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\_Project\\Configs\\ChatbotConfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Data\\Chatbot\\FaqAsset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\_Project\\Data\\Chatbot\\FaqAsset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\Chatbot\\ChatMessageItem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,24 +66,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\TextMesh Pro\\Examples \u0026 Extras\\Scripts\\ChatController.cs",
+              "RelativeDocumentMoniker": "Assets\\TextMesh Pro\\Examples \u0026 Extras\\Scripts\\ChatController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\TextMesh Pro\\Examples \u0026 Extras\\Scripts\\ChatController.cs",
+              "RelativeToolTip": "Assets\\TextMesh Pro\\Examples \u0026 Extras\\Scripts\\ChatController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T17:21:23.948Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "ChatPanelController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs",
               "ToolTip": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs",
               "RelativeToolTip": "Assets\\_Project\\UI\\Chatbot\\ChatPanelController.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAADwv0UAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAC8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-25T05:25:48.006Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "OfflineAnswer.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Game\\Services\\OfflineAnswer.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Game\\Services\\OfflineAnswer.cs",
@@ -87,12 +104,11 @@
               "RelativeToolTip": "Assets\\_Project\\Game\\Services\\OfflineAnswer.cs",
               "ViewState": "AgIAADgAAAAAAAAAAAAYwEUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T11:44:00.333Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T11:44:00.333Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "ChatbotConfig.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Configs\\ChatbotConfig.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Configs\\ChatbotConfig.cs",
@@ -105,7 +121,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AudioManager.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Game\\AudioManager.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Game\\AudioManager.cs",
@@ -117,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "BoardModel.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Core\\BoardModel.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Core\\BoardModel.cs",
@@ -129,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "HighScoreStore.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Core\\HighScoreStore.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Core\\HighScoreStore.cs",
@@ -141,7 +157,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ChatUI.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\Chatbot\\ChatUI.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\UI\\Chatbot\\ChatUI.cs",
@@ -149,12 +165,11 @@
               "RelativeToolTip": "Assets\\_Project\\UI\\Chatbot\\ChatUI.cs",
               "ViewState": "AgIAAIYAAAAAAAAAAADwv6cAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T11:46:06.696Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T11:46:06.696Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "FaqAsset.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Data\\Chatbot\\FaqAsset.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Data\\Chatbot\\FaqAsset.cs",
@@ -162,12 +177,11 @@
               "RelativeToolTip": "Assets\\_Project\\Data\\Chatbot\\FaqAsset.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T10:16:01.293Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T10:16:01.293Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "GameController.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\GameController.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\UI\\GameController.cs",
@@ -179,7 +193,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ChatMessageItem.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\Chatbot\\ChatMessageItem.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\UI\\Chatbot\\ChatMessageItem.cs",
@@ -187,12 +201,11 @@
               "RelativeToolTip": "Assets\\_Project\\UI\\Chatbot\\ChatMessageItem.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-24T11:49:34.289Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-24T11:49:34.289Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "TMP_StyleSheet.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Library\\PackageCache\\com.unity.textmeshpro@3.0.7\\Scripts\\Runtime\\TMP_StyleSheet.cs",
               "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.textmeshpro@3.0.7\\Scripts\\Runtime\\TMP_StyleSheet.cs",
@@ -200,12 +213,11 @@
               "RelativeToolTip": "Library\\PackageCache\\com.unity.textmeshpro@3.0.7\\Scripts\\Runtime\\TMP_StyleSheet.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-04T14:12:55.154Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-04T14:12:55.154Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "OnlineChatService.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\Game\\Services\\OnlineChatService.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\Game\\Services\\OnlineChatService.cs",
@@ -217,7 +229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "TileView.cs",
               "DocumentMoniker": "C:\\Users\\ADMIN\\Documents\\dev game\\dev\\minesweeper-ver-report\\Minesweeper\\Assets\\_Project\\UI\\TileView.cs",
               "RelativeDocumentMoniker": "Assets\\_Project\\UI\\TileView.cs",
