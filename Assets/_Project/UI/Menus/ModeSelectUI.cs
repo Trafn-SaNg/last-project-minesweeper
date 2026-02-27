@@ -4,65 +4,39 @@ using Minesweeper.UI;
 
 public sealed class ModeSelectUI : MonoBehaviour
 {
-    [Header("Panels")]
-    public GameObject modeSelectPanel;
-    public GameObject challengeSelectPanel;
+    [Header("Refs")]
+    public UIOverlayManager overlay;   // kéo object UIOverlayManager (Hierarchy) vào đây
+    public GameController gameController;
 
     [Header("Buttons")]
     public Button classicButton;
     public Button challengeButton;
 
-    [Header("Refs")]
-    public GameController gameController;
-
-    private void Awake()
+    void Awake()
     {
-        if (classicButton)
-            classicButton.onClick.AddListener(OnClassicClicked);
-
-        if (challengeButton)
-            challengeButton.onClick.AddListener(OnChallengeClicked);
+        if (classicButton) classicButton.onClick.AddListener(OnClassic);
+        if (challengeButton) challengeButton.onClick.AddListener(OnChallenge);
     }
 
-    private void OnEnable()
+    void Start()
     {
-        // đảm bảo panel challenge đang tắt khi mở mode select
-        if (challengeSelectPanel)
-            challengeSelectPanel.SetActive(false);
-
-        if (modeSelectPanel)
-            modeSelectPanel.SetActive(true);
+        // Màn đầu tiên
+        if (overlay) overlay.ShowModeSelect();
     }
 
-    private void OnClassicClicked()
+    void OnClassic()
     {
-        if (!gameController)
-        {
-            Debug.LogError("GameController reference missing in ModeSelectUI");
-            return;
-        }
+        if (GameSession.I != null) GameSession.I.Mode = GameMode.Classic;
 
-        // ẩn panel menu
-        if (modeSelectPanel)
-            modeSelectPanel.SetActive(false);
-
-        // bắt đầu Classic mode
-        gameController.StartClassic();
+        if (overlay) overlay.HideOverlayForGameplay();
+        if (gameController) gameController.StartClassic();
     }
 
-    private void OnChallengeClicked()
+    void OnChallenge()
     {
-        if (!gameController)
-        {
-            Debug.LogError("GameController reference missing in ModeSelectUI");
-            return;
-        }
+        if (GameSession.I != null) GameSession.I.Mode = GameMode.Challenge;
 
-        // ẩn panel mode select
-        if (modeSelectPanel)
-            modeSelectPanel.SetActive(false);
-
-        // hiển thị panel challenge select thông qua GameController
-        gameController.ShowChallengeSelect();
+        if (overlay) overlay.ShowChallengeSelect();
+        // Không start game ở đây, start ở ChallengeSelectUI khi chọn level
     }
 }

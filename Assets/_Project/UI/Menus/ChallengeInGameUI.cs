@@ -1,41 +1,48 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Minesweeper.UI;
 
 public sealed class ChallengeInGameUI : MonoBehaviour
 {
-    [Header("Refs")]
-    public GameController gameController;
+    public GameObject challengeSelectPanel;   // Canvas/Overlay/ChallengeSelectPanel
+    public ChallengeGameBridge bridge;        // object ChallengeBridge
 
-    [Header("UI")]
-    public TMP_Text challengeLabel;     // ví dụ: "Challenge L3 - 16x16 - 40"
-    public Button backToModeButton;     // nếu anh muốn quay lại mode select
-    public GameObject modeSelectPanel;  // panel mode select
+    [Header("Win Buttons")]
+    public Button nextButton;
+    public Button winRetryButton;
+    public Button winLevelSelectButton;
 
-    private void Awake()
+    [Header("Lose Buttons")]
+    public Button loseRetryButton;
+    public Button loseLevelSelectButton;
+
+    void Awake()
     {
-        if (backToModeButton)
-            backToModeButton.onClick.AddListener(BackToModeSelect);
+        if (nextButton) nextButton.onClick.AddListener(Next);
+        if (winRetryButton) winRetryButton.onClick.AddListener(Retry);
+        if (loseRetryButton) loseRetryButton.onClick.AddListener(Retry);
+
+        if (winLevelSelectButton) winLevelSelectButton.onClick.AddListener(LevelSelect);
+        if (loseLevelSelectButton) loseLevelSelectButton.onClick.AddListener(LevelSelect);
     }
 
-    private void OnEnable()
+    void Next()
     {
-        Refresh();
+        if (GameSession.I == null) return;
+
+        int nextLv = Mathf.Clamp(GameSession.I.CurrentLevelId + 1, 1, 5);
+        if (!GameSession.I.IsLevelUnlocked(nextLv)) return;
+
+        bridge.StartChallengeLevel(nextLv);
     }
 
-    public void Refresh()
+    void Retry()
     {
-        if (!gameController || !challengeLabel) return;
-
-        // Label chỉ để hiển thị, không ảnh hưởng gameplay
-        // (Nếu anh muốn “level hiện tại” chính xác, anh có thể tự lưu levelId ở UI/Session sau)
-        challengeLabel.text = "Challenge Mode";
+        if (GameSession.I == null) return;
+        bridge.StartChallengeLevel(GameSession.I.CurrentLevelId);
     }
 
-    private void BackToModeSelect()
+    void LevelSelect()
     {
-        if (modeSelectPanel) modeSelectPanel.SetActive(true);
-        gameObject.SetActive(false);
+        if (challengeSelectPanel) challengeSelectPanel.SetActive(true);
     }
 }

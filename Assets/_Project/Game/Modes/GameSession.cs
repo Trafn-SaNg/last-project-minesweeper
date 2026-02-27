@@ -11,11 +11,9 @@ public sealed class GameSession : MonoBehaviour
     public int CurrentLevelId = 1; // 1..5
 
     [Header("Challenge Progress")]
-    public int HighestUnlockedLevel = 1; // mặc định mở Level 1
-    public float[] BestTimeByLevel = new float[6]; // index 1..5, 0 bỏ
+    public int HighestUnlockedLevel = 1; // mặc định mở level 1
 
     const string KeyUnlocked = "CH_UNLOCKED";
-    const string KeyBestPrefix = "CH_BEST_"; // + levelId
 
     void Awake()
     {
@@ -23,49 +21,30 @@ public sealed class GameSession : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
-        LoadChallengeProgress();
-    }
-
-    public void LoadChallengeProgress()
-    {
         HighestUnlockedLevel = PlayerPrefs.GetInt(KeyUnlocked, 1);
-        if (BestTimeByLevel == null || BestTimeByLevel.Length < 6) BestTimeByLevel = new float[6];
-
-        for (int lv = 1; lv <= 5; lv++)
-            BestTimeByLevel[lv] = PlayerPrefs.GetFloat(KeyBestPrefix + lv, 0f);
-    }
-
-    public void SaveChallengeProgress()
-    {
-        PlayerPrefs.SetInt(KeyUnlocked, HighestUnlockedLevel);
-        for (int lv = 1; lv <= 5; lv++)
-            PlayerPrefs.SetFloat(KeyBestPrefix + lv, BestTimeByLevel[lv]);
-        PlayerPrefs.Save();
+        HighestUnlockedLevel = Mathf.Clamp(HighestUnlockedLevel, 1, 5);
     }
 
     public bool IsLevelUnlocked(int levelId)
         => levelId <= HighestUnlockedLevel;
 
-    public void MarkLevelCleared(int levelId, float timeSeconds)
+    public void MarkLevelCleared(int levelId)
     {
-        // best time
-        var best = BestTimeByLevel[levelId];
-        if (best <= 0f || timeSeconds < best)
-            BestTimeByLevel[levelId] = timeSeconds;
+        levelId = Mathf.Clamp(levelId, 1, 5);
 
-        // unlock next
         if (levelId >= HighestUnlockedLevel && levelId < 5)
             HighestUnlockedLevel = levelId + 1;
 
-        SaveChallengeProgress();
+        PlayerPrefs.SetInt(KeyUnlocked, HighestUnlockedLevel);
+        PlayerPrefs.Save();
     }
 
-    public static string FormatTime(float t)
+    // Debug tiện test
+    [ContextMenu("Reset Challenge Progress")]
+    public void ResetChallengeProgress()
     {
-        if (t <= 0f) return "--";
-        int sec = Mathf.RoundToInt(t);
-        int m = sec / 60;
-        int s = sec % 60;
-        return $"{m:00}:{s:00}";
+        HighestUnlockedLevel = 1;
+        PlayerPrefs.SetInt(KeyUnlocked, HighestUnlockedLevel);
+        PlayerPrefs.Save();
     }
 }

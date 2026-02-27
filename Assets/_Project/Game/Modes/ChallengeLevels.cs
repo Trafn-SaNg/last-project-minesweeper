@@ -10,13 +10,16 @@ public class LevelConfig
 
     public LevelConfig(int id, int w, int h, int m)
     {
-        this.id = id; width = w; height = h; mines = m;
+        this.id = id;
+        width = w;
+        height = h;
+        mines = m;
     }
 }
 
 public static class ChallengeLevels
 {
-    public static readonly LevelConfig[] Levels = new LevelConfig[]
+    public static readonly LevelConfig[] Levels =
     {
         new LevelConfig(1,  8,  8, 10),
         new LevelConfig(2, 10, 10, 15),
