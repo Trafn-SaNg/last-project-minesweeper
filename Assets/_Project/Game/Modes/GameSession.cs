@@ -8,7 +8,7 @@ public sealed class GameSession : MonoBehaviour
 
     [Header("Runtime")]
     public GameMode Mode = GameMode.Classic;
-    public int CurrentLevelId = 1; // 1..5
+    public int CurrentLevelId = 1; // 1..MaxLevel
 
     [Header("Challenge Progress")]
     public int HighestUnlockedLevel = 1; // mặc định mở level 1
@@ -22,7 +22,7 @@ public sealed class GameSession : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         HighestUnlockedLevel = PlayerPrefs.GetInt(KeyUnlocked, 1);
-        HighestUnlockedLevel = Mathf.Clamp(HighestUnlockedLevel, 1, 5);
+        HighestUnlockedLevel = Mathf.Clamp(HighestUnlockedLevel, 1, ChallengeLevels.MaxLevel);
     }
 
     public bool IsLevelUnlocked(int levelId)
@@ -30,16 +30,15 @@ public sealed class GameSession : MonoBehaviour
 
     public void MarkLevelCleared(int levelId)
     {
-        levelId = Mathf.Clamp(levelId, 1, 5);
+        levelId = Mathf.Clamp(levelId, 1, ChallengeLevels.MaxLevel);
 
-        if (levelId >= HighestUnlockedLevel && levelId < 5)
+        if (levelId >= HighestUnlockedLevel && levelId < ChallengeLevels.MaxLevel)
             HighestUnlockedLevel = levelId + 1;
 
         PlayerPrefs.SetInt(KeyUnlocked, HighestUnlockedLevel);
         PlayerPrefs.Save();
     }
 
-    // Debug tiện test
     [ContextMenu("Reset Challenge Progress")]
     public void ResetChallengeProgress()
     {

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class LevelConfig
@@ -19,6 +19,9 @@ public class LevelConfig
 
 public static class ChallengeLevels
 {
+    public const int MaxLevel = 10;
+
+    // Anh có thể chỉnh thông số cho hợp demo
     public static readonly LevelConfig[] Levels =
     {
         new LevelConfig(1,  8,  8, 10),
@@ -26,11 +29,17 @@ public static class ChallengeLevels
         new LevelConfig(3, 12, 12, 25),
         new LevelConfig(4, 16, 12, 35),
         new LevelConfig(5, 16, 16, 45),
+
+        new LevelConfig(6, 18, 16, 55),
+        new LevelConfig(7, 20, 16, 70),
+        new LevelConfig(8, 22, 18, 85),
+        new LevelConfig(9, 24, 20, 99),
+        new LevelConfig(10, 26, 20, 120),
     };
 
     public static LevelConfig Get(int levelId)
     {
-        levelId = Mathf.Clamp(levelId, 1, 5);
+        levelId = Mathf.Clamp(levelId, 1, MaxLevel);
         return Levels[levelId - 1];
     }
 }

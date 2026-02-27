@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public sealed class ChallengeInGameUI : MonoBehaviour
 {
-    public GameObject challengeSelectPanel;   // Canvas/Overlay/ChallengeSelectPanel
-    public ChallengeGameBridge bridge;        // object ChallengeBridge
+    public UIOverlayManager overlay;
+    public ChallengeGameBridge bridge;
 
     [Header("Win Buttons")]
     public Button nextButton;
@@ -29,20 +29,23 @@ public sealed class ChallengeInGameUI : MonoBehaviour
     {
         if (GameSession.I == null) return;
 
-        int nextLv = Mathf.Clamp(GameSession.I.CurrentLevelId + 1, 1, 5);
+        int nextLv = Mathf.Clamp(GameSession.I.CurrentLevelId + 1, 1, ChallengeLevels.MaxLevel);
         if (!GameSession.I.IsLevelUnlocked(nextLv)) return;
 
+        if (overlay) overlay.HideOverlayForGameplay();
         bridge.StartChallengeLevel(nextLv);
     }
 
     void Retry()
     {
         if (GameSession.I == null) return;
+
+        if (overlay) overlay.HideOverlayForGameplay();
         bridge.StartChallengeLevel(GameSession.I.CurrentLevelId);
     }
 
     void LevelSelect()
     {
-        if (challengeSelectPanel) challengeSelectPanel.SetActive(true);
+        if (overlay) overlay.ShowChallengeSelect();
     }
 }

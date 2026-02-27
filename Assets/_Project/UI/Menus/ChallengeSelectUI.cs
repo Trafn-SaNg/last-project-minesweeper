@@ -4,13 +4,13 @@ using UnityEngine.UI;
 public sealed class ChallengeSelectUI : MonoBehaviour
 {
     [Header("Refs")]
-    public UIOverlayManager overlay;        // kéo UIOverlayManager
-    public ChallengeGameBridge bridge;      // kéo ChallengeBridge
+    public UIOverlayManager overlay;
+    public ChallengeGameBridge bridge;
     public Button backButton;
 
-    [Header("Level Buttons (size 5)")]
-    public Button[] levelButtons;           // LevelButton_1..5
-    public GameObject[] lockIcons;          // optional
+    [Header("Level Buttons")]
+    public Button[] levelButtons;     // kéo đủ 10 button
+    public GameObject[] lockIcons;    // optional, nếu có kéo đủ 10
 
     void Awake()
     {
@@ -20,11 +20,14 @@ public sealed class ChallengeSelectUI : MonoBehaviour
                 if (overlay) overlay.ShowModeSelect();
             });
 
-        for (int i = 0; i < levelButtons.Length; i++)
+        if (levelButtons != null)
         {
-            int levelId = i + 1;
-            if (levelButtons[i])
-                levelButtons[i].onClick.AddListener(() => StartLevel(levelId));
+            for (int i = 0; i < levelButtons.Length; i++)
+            {
+                int levelId = i + 1;
+                if (levelButtons[i])
+                    levelButtons[i].onClick.AddListener(() => StartLevel(levelId));
+            }
         }
     }
 
@@ -35,13 +38,14 @@ public sealed class ChallengeSelectUI : MonoBehaviour
 
     public void RefreshLocks()
     {
-        for (int i = 0; i < 5; i++)
+        int n = (levelButtons != null) ? levelButtons.Length : 0;
+
+        for (int i = 0; i < n; i++)
         {
             int levelId = i + 1;
             bool unlocked = GameSession.I != null && GameSession.I.IsLevelUnlocked(levelId);
 
-            if (levelButtons != null && i < levelButtons.Length && levelButtons[i])
-                levelButtons[i].interactable = unlocked;
+            if (levelButtons[i]) levelButtons[i].interactable = unlocked;
 
             if (lockIcons != null && i < lockIcons.Length && lockIcons[i])
                 lockIcons[i].SetActive(!unlocked);
@@ -54,7 +58,6 @@ public sealed class ChallengeSelectUI : MonoBehaviour
             return;
 
         if (overlay) overlay.HideOverlayForGameplay();
-
         if (bridge) bridge.StartChallengeLevel(levelId);
         else Debug.LogWarning("[ChallengeSelectUI] Missing ChallengeGameBridge reference!");
     }
