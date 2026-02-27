@@ -3,58 +3,73 @@
 public sealed class AudioManager : MonoBehaviour
 {
     [Header("Sources")]
-    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
 
     [Header("Clips")]
-    public AudioClip bgmAlwaysWithMe;
-    public AudioClip sfxBoom;
-    public AudioClip sfxLose;
-    public AudioClip sfxVictory;
+    public AudioClip bgmClip;
+    public AudioClip boomClip;
+    public AudioClip loseClip;
+    public AudioClip victoryClip;
 
-    private void Awake()
+    void Awake()
     {
-        // auto-find nếu quên kéo source
-        if (!musicSource || !sfxSource)
+        // Nếu anh quên kéo trong Inspector, tự lấy 2 AudioSource trên object
+        if (!bgmSource || !sfxSource)
         {
             var sources = GetComponents<AudioSource>();
-            if (sources.Length >= 2)
+            if (sources != null && sources.Length >= 2)
             {
-                musicSource = sources[0];
-                sfxSource = sources[1];
+                bgmSource ??= sources[0];
+                sfxSource ??= sources[1];
             }
+            else if (sources != null && sources.Length == 1)
+            {
+                // Nếu chỉ có 1 source thì dùng tạm cho cả 2 (không khuyên)
+                bgmSource ??= sources[0];
+                sfxSource ??= sources[0];
+            }
+        }
+
+        // Setup BGM source
+        if (bgmSource)
+        {
+            bgmSource.loop = true;
+            bgmSource.playOnAwake = false;
+            if (bgmClip) bgmSource.clip = bgmClip;
+        }
+
+        // Setup SFX source
+        if (sfxSource)
+        {
+            sfxSource.loop = false;
+            sfxSource.playOnAwake = false;
         }
     }
 
     public void PlayBgm()
     {
-        if (!musicSource || !bgmAlwaysWithMe) return;
-        musicSource.clip = bgmAlwaysWithMe;
-        musicSource.loop = true;
-        musicSource.Play();
+        if (!bgmSource) return;
+        if (bgmSource.clip && !bgmSource.isPlaying) bgmSource.Play();
     }
 
-    public void StopBgm()
+    public void PlayBoom() => PlaySfx(boomClip);
+    public void PlayLose() => PlaySfx(loseClip);
+    public void PlayVictory() => PlaySfx(victoryClip);
+
+    void PlaySfx(AudioClip clip)
     {
-        if (!musicSource) return;
-        musicSource.Stop();
+        if (!sfxSource || !clip) return;
+        sfxSource.PlayOneShot(clip);
     }
 
-    public void PlayBoom()
+    public void SetBgmVolume(float v)
     {
-        if (!sfxSource || !sfxBoom) return;
-        sfxSource.PlayOneShot(sfxBoom);
+        if (bgmSource) bgmSource.volume = Mathf.Clamp01(v);
     }
 
-    public void PlayLose()
+    public void SetSfxVolume(float v)
     {
-        if (!sfxSource || !sfxLose) return;
-        sfxSource.PlayOneShot(sfxLose);
-    }
-
-    public void PlayVictory()
-    {
-        if (!sfxSource || !sfxVictory) return;
-        sfxSource.PlayOneShot(sfxVictory);
+        if (sfxSource) sfxSource.volume = Mathf.Clamp01(v);
     }
 }

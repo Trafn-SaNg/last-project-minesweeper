@@ -63,6 +63,7 @@ namespace Minesweeper.UI
         public UIOverlayManager overlayUI;          // object UIOverlayManager (Hierarchy)
         public WinLoseModeSwitch winLoseModeSwitch; // object UIFlow (WinLoseModeSwitch)
 
+
         private Board _board;
         private TileView[,] _tiles;
 
@@ -253,6 +254,7 @@ namespace Minesweeper.UI
 
             NewGame();
         }
+
 
         // ---------------- Custom panel ----------------
 
