@@ -448,7 +448,11 @@ namespace Minesweeper.UI
                 _state = GameState.Won;
 
                 int seconds = Mathf.Clamp(Mathf.FloorToInt(_time), 0, 9999);
-
+                var mode = (GameSession.I != null) ? GameSession.I.Mode : GameMode.Classic;
+                string detail = mode == GameMode.Challenge
+                    ? $"Lv{GameSession.I.CurrentLevelId}"
+                    : "Classic";
+                StatsStore.RecordGame(mode, detail, seconds, win: true);
                 // Save best for this mode/key
                 HighScoreStore.TrySetBest(BestKey(), seconds);
                 UpdateBestText();
@@ -604,6 +608,15 @@ namespace Minesweeper.UI
                 yield return null;
             }
             if (runId != _runId) yield break;
+
+            // ---- STATS: record lose (đặt trước PlayLose/ShowLose) ----
+            int seconds = Mathf.Clamp(Mathf.FloorToInt(_time), 0, 9999);
+            var mode = (GameSession.I != null) ? GameSession.I.Mode : GameMode.Classic;
+            string detail = mode == GameMode.Challenge
+                ? $"Lv{GameSession.I.CurrentLevelId}"
+                : "Classic";
+            StatsStore.RecordGame(mode, detail, seconds, win: false);
+            // ----------------------------------------------------------
 
             if (audioManager) audioManager.PlayLose();
 
