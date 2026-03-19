@@ -98,9 +98,9 @@ namespace Minesweeper.UI
         {
             if (!classicText) return;
 
-            // Nếu anh muốn “Best theo difficulty”, hiện tại BestKey của anh phụ thuộc _difficultyKey + w/h/m.
+            // Nếu Sang muốn “Best theo difficulty”, hiện tại BestKey của Sang phụ thuộc _difficultyKey + w/h/m.
             // Ở đây em hiển thị đơn giản theo preset phổ biến.
-            // Nếu anh muốn đúng tuyệt đối theo key của anh, em sẽ map theo đúng BestKey.
+            // Nếu Sang muốn đúng tuyệt đối theo key của Sang, em sẽ map theo đúng BestKey.
             int bestEasy = HighScoreStore.GetBest("Easy_9x9_10");
             int bestMed = HighScoreStore.GetBest("Medium_16x16_40");
             int bestHard = HighScoreStore.GetBest("Hard_30x16_99");

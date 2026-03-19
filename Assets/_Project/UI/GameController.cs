@@ -111,7 +111,7 @@ namespace Minesweeper.UI
             if (audioManager) audioManager.PlayBgm();
 
             // Màn đầu tiên: ModeSelect do ModeSelectUI/overlayUI đảm nhiệm.
-            // Nếu anh không dùng ModeSelectPanel thì fallback chơi luôn.
+            // Nếu Sang không dùng ModeSelectPanel thì fallback chơi luôn.
             if (modeSelectPanel == null && overlayUI == null)
             {
                 ApplyDifficultyPreset(0);
